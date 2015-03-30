@@ -71,11 +71,17 @@ public class Fereastra {
 			 filmDeSters.setBounds(20,20,30,24);
 			 filmDeSters.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e){
-					String nume;
+					String nume;int ok;
 					try {
 						nume=textFilm.getText();
+						ok=f.existaFilm(nume);
+						if (ok==1)
+						{
 						f.stergeFilm(nume);
 						JOptionPane.showMessageDialog(null, "Film Sters cu succes");
+						sterg.dispose();
+					}
+						else JOptionPane.showMessageDialog(null, "Film inexistent!Bye Bye");
 						sterg.dispose();
 					}
 					catch (Exception e1){
