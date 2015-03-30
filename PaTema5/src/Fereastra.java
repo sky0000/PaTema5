@@ -1,6 +1,7 @@
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
 
 import javax.swing.*;
 
@@ -73,6 +74,7 @@ public class Fereastra {
 				public void actionPerformed(ActionEvent e){
 					String nume;int ok;
 					try { 
+						
 						nume=textFilm.getText();
 						ok=f.existaFilm(nume);
 						if (ok==1)
@@ -194,6 +196,29 @@ public class Fereastra {
 		}
 	});
 	
+	JButton xml=new JButton("XML File");
+	xml.setBounds(850,161,150,24);
+	frame.add(xml);
+	xml.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e){
+			f.createXml();
+			JOptionPane.showMessageDialog(null, "Fisier creat cu succes");
+		}
+	});
+	
+	JButton openXml=new JButton("Open Xml");
+	openXml.setBounds(850,191,150,24);
+	frame.add(openXml);
+	openXml.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e){
+			try {
+				f.openXml();
+			} catch (IOException e1) {
+				JOptionPane.showMessageDialog(null , "NU pot deschide Fisierul");
+				e1.printStackTrace();
+			}
+		}
+	});
 	JButton curata =new JButton("Clean");
 	 curata.setBounds(850,41,150,24);
 	 frame.add(curata);
