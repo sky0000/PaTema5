@@ -9,55 +9,6 @@ import java.util.Collections;
 
 import javax.swing.*;
   
-/*class Fereastra extends JFrame{
-	JPanel p =new JPanel();
-/*	public static void main(String [] args)
-	{
-		new Fereastra();
-	}
-	public Fereastra()
-	{
-		super("buhuh");
-		setLayout(new FlowLayout());
-		setSize(400,400);
-		setResizable(true);
-		setDefaultCloseOperation(EXIT_ON_CLOSE);
-		
-		setVisible(true);
-		
-		Button b1=new Button("Filme");
-		add(b1);
-		Asculta listener = new Asculta(this);
-		ColectieFilme f=new ColectieFilme();
-		JLabel labe=new JLabel();
-		JScrollPane scroll = new JScrollPane(labe);
-		labe.setBounds(20, 20, 200, 100);
-		labe.setText(f.toString());
-		setVisible(true);
-		add(labe);
-		JTextField textField = new JTextField(f.toString());
-		textField.setBounds(20, 20, 200, 100);
-		textField.setText(f.toString());
-		setVisible(true);
-		p.add(textField);
-	}
-}
-class Asculta implements ActionListener
-{
-	private Fereastra frame;
-	public Asculta(Fereastra frame)
-	{
-		this.frame=frame;
-	}
-	@Override
-	public void actionPerformed(ActionEvent e) {
-		ColectieFilme f=new ColectieFilme();
-		JLabel labe=new JLabel();
-		labe.setText("ssas");
-		
-		//setVisible(true);
-	}
-}*/
 class ExceptiiPosibile extends Exception{
 	public ExceptiiPosibile(){
 		
@@ -123,13 +74,13 @@ public String toString()
     StringBuilder result = new StringBuilder();
     String NEW_LINE = System.getProperty("line.separator");
 
-	String spatiu="                                   ";
+	String spatiu="                                        ";
 for(Film film : Filme)
 		 {      
 		 result.append( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
 		   		 film.getCategorieFilm()+spatiu.substring(0,spatiu.length()-film.getCategorieFilm().length())
 		   		 +film.getDataLansareFilm()+spatiu.substring(0,spatiu.length()-film.getDataLansareFilm().length())
-		   		 +film.getNotaFilm()+"     "
+		   		 +film.getNotaFilm()+"             "
 		   		 +film.getIdFilm());
 		 result.append(NEW_LINE);
 		 }
@@ -159,11 +110,21 @@ public void scrieRaport()
 		 catch(IOException ex) {
 	            System.out.println("Nu am putut scrie in"+ "D:\\!Scoala\\java\\PaTema3Prob1\\src\\"+numeFisier + "'");}
 	 }
-public void stergeFilm()
-{  Scanner readFilm=new Scanner(System.in);
-   System.out.println("Introduceti numele filmului pe care vreti sa il stergeti :");
-   String numeFilm=readFilm.next();
-   System.out.println(numeFilm);
+public int existaFilm(String numeFilm)
+{
+
+
+		for(Film film: Filme)
+		
+			if(film.getNumeFilm().equals(numeFilm))
+return 1;
+return 0;
+
+
+}
+
+public void stergeFilm(String numeFilm)
+{ 
 
    List<Film> copy = new ArrayList<Film>(Filme);
 
@@ -216,38 +177,7 @@ while(x==1)
 	}
 }
 }
-public void meniu()
-{ int ok=1;
-	while(ok==1)
-	{
-		System.out.println("Introduseti optiunea: ");
-		System.out.println("1-Afisare filme din colectie");
-		System.out.println("2-Adauga film");
-		System.out.println("3-Sterge film");
-		System.out.println("4-Pune filmele intr-un fisier ");
-		System.out.println("5-Sorteaza dupa nota ");
-		System.out.println("0-Pentru iesire");
-		Scanner optiune=new Scanner(System.in);
-		int numar=optiune.nextInt();
-		try {
-		if(numar>5) throw new ExceptiiPosibile();
-		}
-		catch (ExceptiiPosibile e)
-		{
-			System.out.println("Optiune invalida");
-			this.meniu();
-		}
-		switch(numar)
-		{
-		case 1: this.afisareFilme();break;
-		case 2: this.adaugaFilm();break;
-		case 3: this.stergeFilm();break;
-		case 4: this.scrieRaport();break;
-		case 5: this.sortareDupaNota();break;
-		case 0: ok=0; break;
-		}
-	}
-}
+
 public void sortareDupaNota()
 {
 double []  vector= new double[100];
@@ -285,17 +215,7 @@ for(int i=1;i<k;i++)
 	 Filme = new ArrayList<Film>(copy);
 }
 
-
-//public static void main(String[] args) throws IOException 
-
-	// {
-	
-//ColectieFilme filme=new ColectieFilme();
-
-//filme.meniu();
-//}
 }
-
 class Film implements Comparable
 {
 	String numeFilm;
