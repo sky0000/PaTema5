@@ -140,42 +140,12 @@ public void stergeFilm(String numeFilm)
 
 
 }
-public void adaugaFilm()
-{	 int x=1;
-while(x==1)
-{
-	try
-	{
-	Scanner read=new Scanner(System.in);
-	System.out.println("Nume film: ");
-	String numeFilm=read.nextLine();
+public void adaugaFilm(String numeFilm,String categorieFilm,String dataLansare,double notaFilm,String idFilm)
+{	
 
-	Scanner read1=new Scanner(System.in);
-	System.out.println("Categorie Film: ");
-	String categorieFilm=read1.nextLine();
-	
-	Scanner read2=new Scanner(System.in);
-	System.out.println("Data lansare : ");
-	String dataLansare=read2.nextLine();
-	
-	Scanner read3=new Scanner(System.in);
-	System.out.println("Nota film : ");
-	double notaFilm=read3.nextDouble();
-	
-
-	Scanner read5=new Scanner(System.in);
-	System.out.println("Id film : ");
-	String idFilm=read5.nextLine();
-	
 	Filme.add(new Film (numeFilm,categorieFilm,dataLansare,notaFilm,idFilm));
-	x=2;
-	}
-	catch (Exception e)
-	{
-		System.out.println("Asta nu e o nota ");
-		
-	}
-}
+
+
 }
 
 public void sortareDupaNota()
