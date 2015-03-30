@@ -19,7 +19,7 @@ public class Fereastra {
 	  textArea=new JTextArea();
 	// textArea.setText(f.toString());
 		 JButton btnFilme = new JButton("Filme");
-		 btnFilme.setBounds(550, 11, 69, 24);
+		 btnFilme.setBounds(850, 11, 69, 24);
 		 frame.add(btnFilme);
 			btnFilme.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -28,7 +28,28 @@ public class Fereastra {
 					textArea.setText(f.toString());
 				}
 			});
+	
+	JButton sort=new JButton("Sorteaza");
+	sort.setBounds(850,71,69,24);
+	frame.add(sort);
+	sort.addActionListener(new ActionListener(){
+		public void actionPerformed(ActionEvent e){
+			f.sortareDupaNota();
+			textArea.setText(f.toString());
+			f=new ColectieFilme();
+		}
+	});
 			
+	 JButton curata =new JButton("Clean");
+	 curata.setBounds(850,41,69,24);
+	 frame.add(curata);
+	 curata.addActionListener(new ActionListener() {
+		 public void actionPerformed(ActionEvent e){
+			 textArea.setText("");
+			 
+		 }
+	 });
+	 
 	 JScrollPane scroll=new JScrollPane(textArea);
 	 scroll.setBounds(5,5,800,300);
 	  
