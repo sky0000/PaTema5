@@ -63,7 +63,8 @@ public ColectieFilme()
      	String dataLansare=date[2]; 
      	double notaFilm= Double.parseDouble(date[3]);
      	String idFilm=date[4];
-     	Filme.add(new Film(numeFilm,categorieFilm,dataLansare,notaFilm,idFilm)); 
+     	String genFilm=date[5];
+     	Filme.add(new Film(numeFilm,categorieFilm,dataLansare,notaFilm,idFilm,genFilm)); 
 
        }
        
@@ -87,7 +88,46 @@ for(Film film : Filme)
 		 System.out.println();
 		 }
 }	
-@Override
+//@Override
+public String toStringGen(String gen )
+{
+    StringBuilder result = new StringBuilder();
+    String NEW_LINE = System.getProperty("line.separator");
+
+	String spatiu="                                   ";
+for(Film film : Filme)
+		 {
+			if(film.getGenFilm().equals(gen)){
+		 result.append( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
+		   		 film.getCategorieFilm()+spatiu.substring(0,spatiu.length()-film.getCategorieFilm().length())+
+		   		 film.getGenFilm()+spatiu.substring(0,spatiu.length()-film.getGenFilm().length())
+		   		 +film.getDataLansareFilm()+spatiu.substring(0,spatiu.length()-film.getDataLansareFilm().length())
+		   		 +film.getNotaFilm()+"     "
+		   		 +film.getIdFilm());
+		 result.append(NEW_LINE);}
+		 }
+return result.toString();
+}
+
+public String toString(String categorie)
+{
+    StringBuilder result = new StringBuilder();
+    String NEW_LINE = System.getProperty("line.separator");
+
+	String spatiu="                                   ";
+for(Film film : Filme)
+		 {
+			if(film.getCategorieFilm().equals(categorie)){
+		 result.append( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
+		   		 film.getCategorieFilm()+spatiu.substring(30,spatiu.length()-film.getCategorieFilm().length())+
+		   		 film.getGenFilm()+spatiu.substring(30,spatiu.length()-film.getGenFilm().length())
+		   		 +film.getDataLansareFilm()+spatiu.substring(30,spatiu.length()-film.getDataLansareFilm().length())
+		   		 +film.getNotaFilm()+"     "
+		   		 +film.getIdFilm());
+		 result.append(NEW_LINE);}
+		 }
+return result.toString();
+}
 public String toString()
 {
     StringBuilder result = new StringBuilder();
@@ -97,8 +137,9 @@ public String toString()
 for(Film film : Filme)
 		 {      
 		 result.append( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
-		   		 film.getCategorieFilm()+spatiu.substring(0,spatiu.length()-film.getCategorieFilm().length())
-		   		 +film.getDataLansareFilm()+spatiu.substring(0,spatiu.length()-film.getDataLansareFilm().length())
+		   		 film.getCategorieFilm()+spatiu.substring(20,spatiu.length()-film.getCategorieFilm().length())
+		   		 +film.getGenFilm()+spatiu.substring(20,spatiu.length()-film.getGenFilm().length())
+		   		 +film.getDataLansareFilm()+spatiu.substring(20,spatiu.length()-film.getDataLansareFilm().length())
 		   		 +film.getNotaFilm()+"             "
 		   		 +film.getIdFilm());
 		 result.append(NEW_LINE);
@@ -117,8 +158,7 @@ public void scrieRaport()
 	        {
 		 FileWriter writer = new FileWriter("D:\\!Scoala\\java\\PaTema3Prob1\\src\\"+numeFisier); 
 		 for(Film film: Filme) {
-		   writer.write( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
-				   		 film.getCategorieFilm()+spatiu.substring(0,spatiu.length()-film.getCategorieFilm().length())
+		   writer.write( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getCategorieFilm().length())
 				   		 +film.getDataLansareFilm()+spatiu.substring(0,spatiu.length()-film.getDataLansareFilm().length())
 				   		 +film.getNotaFilm()+"     "
 				   		 +film.getIdFilm());
@@ -159,10 +199,10 @@ public void stergeFilm(String numeFilm)
 
 
 }
-public void adaugaFilm(String numeFilm,String categorieFilm,String dataLansare,double notaFilm,String idFilm)
+public void adaugaFilm(String numeFilm,String categorieFilm,String dataLansare,double notaFilm,String idFilm,String genFilm)
 {	
 
-	Filme.add(new Film (numeFilm,categorieFilm,dataLansare,notaFilm,idFilm));
+	Filme.add(new Film (numeFilm,categorieFilm,dataLansare,notaFilm,idFilm,genFilm));
 
 
 }
@@ -197,7 +237,7 @@ for(int i=1;i<k;i++)
 	  		  
 			  if(vector[i]==film.getNotaFilm() && denumire[i]==film.getNumeFilm())
 			  {
-				  copy.add(new Film(film.getNumeFilm(),film.getCategorieFilm(),film.getDataLansareFilm(),film.getNotaFilm(),film.getIdFilm()));
+				  copy.add(new Film(film.getNumeFilm(),film.getCategorieFilm(),film.getDataLansareFilm(),film.getNotaFilm(),film.getIdFilm(),film.getGenFilm()));
 			  }
 			}	
   }
@@ -220,36 +260,41 @@ public void createXml(){
 	
 		   		// +film.getIdFilm());
 		// staff elements
-		Element staff = doc.createElement("Film");
-		rootElement.appendChild(staff);
+		Element filmul = doc.createElement("Film");
+		rootElement.appendChild(filmul);
 
-		// set attribute to staff element
-		Attr attr = doc.createAttribute("id");
-		attr.setValue(film.getIdFilm());
-		staff.setAttributeNode(attr);
+		// seteaza id-ul filmului 
+		Attr id = doc.createAttribute("id");
+		id.setValue(film.getIdFilm());
+		filmul.setAttributeNode(id);
 
 		// shorten way
 		// staff.setAttribute("id", "1");
 
-		// firstname elements
-		Element firstname = doc.createElement("nume");
-		firstname.appendChild(doc.createTextNode(film.getNumeFilm()));
-		staff.appendChild(firstname);
+		// seteaza numele filmului
+		Element nume = doc.createElement("nume");
+		nume.appendChild(doc.createTextNode(film.getNumeFilm()));
+		filmul.appendChild(nume);
 
-		// lastname elements
-		Element lastname = doc.createElement("categorie");
-		lastname.appendChild(doc.createTextNode(film.getCategorieFilm()));
-		staff.appendChild(lastname);
+		// seteaza categoria filmului
+		Element categorie = doc.createElement("categorie");
+		categorie.appendChild(doc.createTextNode(film.getCategorieFilm()));
+		filmul.appendChild(categorie);
 
-		// nickname elements
-		Element nickname = doc.createElement("Data-Lansare");
-		nickname.appendChild(doc.createTextNode(film.getDataLansareFilm()));
-		staff.appendChild(nickname);
+		// seteaza data lansarii
+		Element dataLansare = doc.createElement("Data-Lansare");
+		dataLansare.appendChild(doc.createTextNode(film.getDataLansareFilm()));
+		filmul.appendChild(dataLansare);
 
-		// salary elements
-		Element salary = doc.createElement("Nota");
-		salary.appendChild(doc.createTextNode(String.valueOf(film.getNotaFilm())));
-		staff.appendChild(salary);
+		// seteaza nota
+		Element nota = doc.createElement("Nota");
+		nota.appendChild(doc.createTextNode(String.valueOf(film.getNotaFilm())));
+		filmul.appendChild(nota);
+		
+		//seteaza genul 
+		Element gen = doc.createElement("Gen");
+		gen.appendChild(doc.createTextNode(String.valueOf(film.getGenFilm())));
+		filmul.appendChild(gen);
 
 		// write the content into xml file
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
@@ -290,6 +335,7 @@ class Film implements Comparable
 	String dataLansare;
 	public double notaFilm;
 	String idFilm;
+	String genFilm;
 	public Film(){}
 	 @Override
 	    public int compareTo(Object film)
@@ -297,13 +343,14 @@ class Film implements Comparable
 		 double comaparaNota=((Film)film).getNotaFilm();
 		 return (int) ((int)this.notaFilm-comaparaNota);
 	    }
-    public Film(String nume,String categorie,String data,double nota,String id)
+    public Film(String nume,String categorie,String data,double nota,String id, String gen)
     {
     	numeFilm=nume;
     	categorieFilm=categorie;
     	dataLansare=data;
     	notaFilm=nota;
     	idFilm=id;
+    	genFilm=gen;
     }
 	public void setNumeFilm(String nume)
 	{
@@ -324,6 +371,14 @@ class Film implements Comparable
 	public void setIdFilm(String id)
 	{
 		this.idFilm=id;
+	}
+	public void setGen(String gen)
+	{
+		this.genFilm=gen;
+	}
+	public String getGenFilm()
+	{
+		return this.genFilm;
 	}
 	public String getNumeFilm()
 	{
