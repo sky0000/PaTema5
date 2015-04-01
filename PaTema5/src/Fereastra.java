@@ -25,7 +25,7 @@ public class Fereastra {
 	 
 	  textArea=new JTextArea();
 	  textArea.setEditable(false);
-	  textArea.setFont(new Font("Consolas",Font.BOLD,10));
+	  textArea.setFont(new Font("Consolas",Font.BOLD,13));
 	// textArea.setText(f.toString());
 		 JButton btnFilme = new JButton("Filme");
 		 btnFilme.setBounds(850, 11, 150, 24);
@@ -34,6 +34,7 @@ public class Fereastra {
 				public void actionPerformed(ActionEvent e) {
 					
 					//JOptionPane.showMessageDialog(null,f.toString());
+					f.ReadXMLFile();
 					textArea.setText(f.toString());
 				}
 			});
@@ -110,7 +111,7 @@ public class Fereastra {
 	adauga.addActionListener(new ActionListener(){
 		public void actionPerformed(ActionEvent e){
 			JFrame adaug = new JFrame("Date");
-			 adaug.setSize(100, 300);
+			 adaug.setSize(100, 350);
 			 adaug.setLayout(new FlowLayout());
 			
 			 adaug.setLocationRelativeTo(null);
@@ -240,7 +241,17 @@ public class Fereastra {
 		}
 	});
 	
-	JButton openXml=new JButton("Open Xml");
+	JButton printXml =new JButton("Afiseaza XML");
+	printXml.setBounds(850,251,150,24);
+	frame.add(printXml);
+	printXml.addActionListener(new ActionListener(){
+	public void actionPerformed(ActionEvent e){
+		textArea.setText(f.ReadXMLFile());
+	}
+		
+	});
+		JButton openXml=new JButton("Open Xml");
+	
 	openXml.setBounds(850,191,150,24);
 	frame.add(openXml);
 	openXml.addActionListener(new ActionListener(){

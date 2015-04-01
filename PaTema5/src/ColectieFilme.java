@@ -16,6 +16,7 @@ import java.io.File;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.soap.Node;
 import javax.xml.transform.Transformer;
 import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
@@ -23,8 +24,11 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
  
 
+
+
 import org.w3c.dom.Attr;
 import org.w3c.dom.Element;
+import org.w3c.dom.NodeList;
 
 
   
@@ -44,7 +48,7 @@ public class ColectieFilme
 	
 public ColectieFilme()
 {
-	System.out.println("Reading File from Java code");
+	//System.out.println("Reading File from Java code");
     String fileName="D:\\!Scoala\\java\\PaTema3Prob1\\src\\Filme.txt";
     try{
      
@@ -75,19 +79,7 @@ public ColectieFilme()
     }
 	
 }
-public void  afisareFilme()
-{
-	String spatiu="                                   ";
-for(Film film : Filme)
-		 {      
-		 System.out.print( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
-		   		 film.getCategorieFilm()+spatiu.substring(0,spatiu.length()-film.getCategorieFilm().length())
-		   		 +film.getDataLansareFilm()+spatiu.substring(0,spatiu.length()-film.getDataLansareFilm().length())
-		   		 +film.getNotaFilm()+"     "
-		   		 +film.getIdFilm());
-		 System.out.println();
-		 }
-}	
+
 //@Override
 public String toStringGen(String gen )
 {
@@ -99,10 +91,10 @@ for(Film film : Filme)
 		 {
 			if(film.getGenFilm().equals(gen)){
 		 result.append( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
-		   		 film.getCategorieFilm()+spatiu.substring(0,spatiu.length()-film.getCategorieFilm().length())+
-		   		 film.getGenFilm()+spatiu.substring(0,spatiu.length()-film.getGenFilm().length())
-		   		 +film.getDataLansareFilm()+spatiu.substring(0,spatiu.length()-film.getDataLansareFilm().length())
-		   		 +film.getNotaFilm()+"     "
+		   		 film.getCategorieFilm()+spatiu.substring(25,spatiu.length()-film.getCategorieFilm().length())+
+		   		 film.getGenFilm()+spatiu.substring(20,spatiu.length()-film.getGenFilm().length())
+		   		 +film.getDataLansareFilm()+spatiu.substring(15,spatiu.length()-film.getDataLansareFilm().length())
+		   		 +film.getNotaFilm()+"  "
 		   		 +film.getIdFilm());
 		 result.append(NEW_LINE);}
 		 }
@@ -119,10 +111,10 @@ for(Film film : Filme)
 		 {
 			if(film.getCategorieFilm().equals(categorie)){
 		 result.append( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
-		   		 film.getCategorieFilm()+spatiu.substring(30,spatiu.length()-film.getCategorieFilm().length())+
-		   		 film.getGenFilm()+spatiu.substring(30,spatiu.length()-film.getGenFilm().length())
-		   		 +film.getDataLansareFilm()+spatiu.substring(30,spatiu.length()-film.getDataLansareFilm().length())
-		   		 +film.getNotaFilm()+"     "
+		   		 film.getCategorieFilm()+spatiu.substring(25,spatiu.length()-film.getCategorieFilm().length())+
+		   		 film.getGenFilm()+spatiu.substring(20,spatiu.length()-film.getGenFilm().length())
+		   		 +film.getDataLansareFilm()+spatiu.substring(15,spatiu.length()-film.getDataLansareFilm().length())
+		   		 +film.getNotaFilm()+"    "
 		   		 +film.getIdFilm());
 		 result.append(NEW_LINE);}
 		 }
@@ -136,11 +128,11 @@ public String toString()
 	String spatiu="                                        ";
 for(Film film : Filme)
 		 {      
-		 result.append( film.getNumeFilm()+spatiu.substring(0,spatiu.length()-film.getNumeFilm().length())+
-		   		 film.getCategorieFilm()+spatiu.substring(20,spatiu.length()-film.getCategorieFilm().length())
+		 result.append( film.getNumeFilm()+spatiu.substring(8,spatiu.length()-film.getNumeFilm().length())+
+		   		 film.getCategorieFilm()+spatiu.substring(30,spatiu.length()-film.getCategorieFilm().length())
 		   		 +film.getGenFilm()+spatiu.substring(20,spatiu.length()-film.getGenFilm().length())
 		   		 +film.getDataLansareFilm()+spatiu.substring(20,spatiu.length()-film.getDataLansareFilm().length())
-		   		 +film.getNotaFilm()+"             "
+		   		 +film.getNotaFilm()+"     "
 		   		 +film.getIdFilm());
 		 result.append(NEW_LINE);
 		 }
@@ -307,7 +299,7 @@ public void createXml(){
 
 		transformer.transform(source, result);
 
-		System.out.println("File saved!");
+		
 
 	  }} catch (ParserConfigurationException pce) {
 		pce.printStackTrace();
@@ -326,8 +318,60 @@ public void openXml() throws IOException
 	{
 		System.out.println("Nu se poate reda"+E.getMessage());
 	}
+}
+	public String ReadXMLFile () {
+		 
+	
+	    StringBuilder result = new StringBuilder();
+        String NEW_LINE = System.getProperty("line.separator");
+		    try {
+		    
+		 
+			File fXmlFile = new File("C:\\file.xml");
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			org.w3c.dom.Document doc = dBuilder.parse(fXmlFile);
+		 
+			//optional, but recommended
+			//read this - http://stackoverflow.com/questions/13786607/normalization-in-dom-parsing-with-java-how-does-it-work
+			doc.getDocumentElement().normalize();
+		 
+			System.out.println("Root element :" + doc.getDocumentElement().getNodeName());
+		 
+			NodeList nList = doc.getElementsByTagName("Film");
+		 
+			System.out.println("----------------------------");
+		 
+			for (int temp = 0; temp < nList.getLength(); temp++) {
+		 
+				org.w3c.dom.Node nNode = nList.item(temp);
+		 
+				result.append(NEW_LINE+"Parinte :" + nNode.getNodeName());
+		 
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) {
+		 
+					Element eElement = (Element) nNode;
+		 
+					result.append(" cu id Film : " + eElement.getAttribute("id")+NEW_LINE);
+					result.append("Nume Film : " + eElement.getElementsByTagName("nume").item(0).getTextContent()+NEW_LINE);
+					result.append("Categorie Film : " + eElement.getElementsByTagName("categorie").item(0).getTextContent()+NEW_LINE);
+					result.append("Data Lansare : " + eElement.getElementsByTagName("Data-Lansare").item(0).getTextContent()+NEW_LINE);
+					result.append("Nota : " + eElement.getElementsByTagName("Nota").item(0).getTextContent()+NEW_LINE);
+					result.append("GEn : " + eElement.getElementsByTagName("Gen").item(0).getTextContent()+NEW_LINE);
+		 
+				}
+			}
+		    } catch (Exception e) {
+			e.printStackTrace();
+		    }
+		    return result.toString();
+		  }
+		 
+		
+
 
 }
+
 class Film implements Comparable
 {
 	String numeFilm;
@@ -401,4 +445,4 @@ class Film implements Comparable
 		return this.idFilm;
 	}
 
-	  }}
+	  }
