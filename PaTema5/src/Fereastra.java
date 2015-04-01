@@ -34,7 +34,7 @@ public class Fereastra {
 				public void actionPerformed(ActionEvent e) {
 					
 					//JOptionPane.showMessageDialog(null,f.toString());
-					f.ReadXMLFile();
+					
 					textArea.setText(f.toString());
 				}
 			});

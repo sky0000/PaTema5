@@ -49,12 +49,18 @@ public class ColectieFilme
 public ColectieFilme()
 {
 	//System.out.println("Reading File from Java code");
-    String fileName="D:\\!Scoala\\java\\PaTema3Prob1\\src\\Filme.txt";
+	//InputStream in = this.getClass().getClassLoader()
+      //      .getResourceAsStream("D:\\!Scoala\\java\\PaTema3Prob1\\src\\Filme.txt");
+
+    String fileName="D:\\!Scoala\\gitRep\\Tema5\\PaTema5\\src\\Filme.txt";
     try{
+    	
+   	 InputStream is = getClass().getResourceAsStream("Filme.txt");
+	  InputStreamReader isr = new InputStreamReader(is);
+	  
+      // FileReader inputFile = new FileReader(fileName);
      
-       FileReader inputFile = new FileReader(fileName);
-     
-       BufferedReader bufferReader = new BufferedReader(inputFile);
+       BufferedReader bufferReader = new BufferedReader(isr);
       
        String line;
    
@@ -292,7 +298,7 @@ public void createXml(){
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
 		DOMSource source = new DOMSource(doc);
-		StreamResult result = new StreamResult(new File("C:\\file.xml"));
+		StreamResult result = new StreamResult(new File("D:\\file.xml"));
 		 
 		// Output to console for testing
 		// StreamResult result = new StreamResult(System.out);
@@ -310,7 +316,7 @@ public void createXml(){
 public void openXml() throws IOException
 {   
 	try {		
-	    String path ="C:\\file.xml";
+	    String path ="D:\\file.xml";
 	    Runtime runtime = Runtime.getRuntime();
 	    runtime.exec("explorer.exe "+path);
 	   // System.out.println("open");
@@ -327,7 +333,7 @@ public void openXml() throws IOException
 		    try {
 		    
 		 
-			File fXmlFile = new File("C:\\file.xml");
+			File fXmlFile = new File("D:\\file.xml");
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
 			org.w3c.dom.Document doc = dBuilder.parse(fXmlFile);
